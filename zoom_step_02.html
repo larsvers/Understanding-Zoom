@@ -154,15 +154,15 @@ function make(data) {
       .attr('class', 'chart')
       .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
   
-  var listenerRect = d3.select('svg')
+  var listenerRect = svg
     .append('rect')
       .attr('class', 'listener-rect')
       .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', screenWidth + margin.left + margin.right)
+      .attr('y', -margin.top)
+      .attr('width', screenWidth)
       .attr('height', height + margin.top + margin.bottom)
       .style('opacity', 0);
- 
+  
 
   
   /* Scales */
@@ -197,7 +197,7 @@ function make(data) {
   /* --------- */
 
   // Drawing the axis
-  var xAxisDraw = svg.append('g')
+  var xAxisDraw = svg.insert('g', ':first-child')
       .attr('class', 'x axis')
       .call(xAxis);
 
@@ -229,7 +229,7 @@ function make(data) {
   /* Sun and planets */
   /* --------------- */
 
-  var gPlanets = svg.append('g').attr('class', 'planet-group');
+  var gPlanets = svg.insert('g', '.listener-rect').attr('class', 'planet-group');
 
   var planets = gPlanets.selectAll('.planet')
     .data(data).enter()
